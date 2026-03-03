@@ -136,7 +136,7 @@ export function Sidebar({ className }: { className?: string }) {
                     {/* App Metadata */}
                     <div className="flex flex-col min-w-0">
                       <p className="text-[10px] font-black text-black uppercase tracking-[0.2em] truncate">
-                        vive -v2
+                        vibe -v2
                       </p>
                       <div className="flex items-center gap-1.5">
                         <div className="w-1 h-1 rounded-full bg-black animate-pulse" />
