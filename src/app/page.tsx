@@ -178,7 +178,7 @@ export default function Home() {
                     toast("Entered fullscreen mode");
                   }
                 }}
-                className="flex items-center gap-2 md:px-4 md:py-2 px-3 py-1  bg-white/10 hover:bg-white/20 transition-colors rounded-full text-xs font-medium"
+                className="flex items-center gap-2 md:px-4 md:py-2 px-2 py-2  bg-white/10 hover:bg-white/20 transition-colors rounded-full text-xs font-medium"
               >
                 <Maximize2 className="w-3 h-3" />
                 <span className="md:block hidden">Full Screen</span>
