@@ -12,7 +12,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
     <div className="flex flex-col h-screen w-full bg-black text-white overflow-hidden font-sans">
       {/* Mobile Header */}
       <div className="md:hidden flex items-center justify-between h-14 px-4 shrink-0 bg-[#0a0a0a] border-b border-[#1a1a1a] z-50">
-        <div className="flex items-center gap-">
+        <div className="flex items-center gap- cursor-pointer" onClick={()=>{window.location.href="/"}}>
           <Music2 className="size-6 text-red-500 -mr-4" />
           <Music3 className="size-6 text-red-400" />
           <span className="font-bold text-lg">Vibe V2</span>
