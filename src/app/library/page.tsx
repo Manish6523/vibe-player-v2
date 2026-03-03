@@ -40,7 +40,7 @@ export default function LibraryPage() {
   }, [likedSongs, playlists]);
 
   return (
-    <div className="flex-1 flex flex-col p-4 overflow-hidden bg-black text-white rounded-[2rem] m-4 relative min-w-[350px]">
+    <div className="flex-1 flex flex-col p-4 overflow-hidden bg-black text-white rounded-[2rem] m-0 relative min-w-[350px]">
       <div className="flex items-center justify-between mb-8 z-10 shrink-0">
         <div>
           <h1 className="text-4xl font-bold mb-2">Your Library</h1>
