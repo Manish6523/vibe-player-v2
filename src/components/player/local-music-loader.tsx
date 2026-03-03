@@ -117,16 +117,17 @@ export function LocalMusicLoader() {
       />
       <Button
         variant="outline"
+        size={"icon-lg"}
         onClick={() => fileInputRef.current?.click()}
         disabled={isProcessing}
-        className="w-full sm:w-auto hover:bg-primary/20 hover:text-primary transition-colors border-primary/50"
+        className="w-full sm:w-auto hover:bg-primary/20 hover:text-primary transition-colors border-primary/50 rounded-full md:rounded-md px-3 cursor-pointer"
       >
         {isProcessing ? (
-          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+          <Loader2 className="md:mr-2 h-4 w-4 animate-spin" />
         ) : (
-          <FolderUp className="mr-2 h-4 w-4" />
+          <FolderUp className="md:mr-2 h-4 w-4" />
         )}
-        Import Folder
+        <span className="hidden sm:block">Import Folder</span>
       </Button>
     </div>
   );

@@ -11,6 +11,7 @@ import {
   Heart,
   MoreHorizontal,
   Loader2,
+  Import,
 } from "lucide-react";
 import YouTube from "react-youtube";
 import { Input } from "@/components/ui/input";
@@ -22,6 +23,7 @@ import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
 
 export default function Home() {
   const queue = usePlayerStore((s) => s.queue);
@@ -133,7 +135,7 @@ export default function Home() {
   }, [initYtPlaylists]);
 
   return (
-    <main className="flex-1 flex flex-col md:flex-row gap-4 p-4 overflow-y-auto md:overflow-hidden bg-black text-white h-full relative">
+    <main className="flex-1 flex flex-col md:flex-row gap-2 md:gap-4 p-2 md:p-4 overflow-y-auto md:overflow-hidden bg-black text-white h-full relative">
       {/* Left Panel: Now Playing Focus */}
       <div className="w-full md:flex-[0.55] flex flex-col gap-4 md:h-full min-h-[50vh] md:min-h-0 shrink-0">
         {isMinimized && (
@@ -159,7 +161,7 @@ export default function Home() {
             <div className="flex gap-2">
               <button
                 onClick={() => setIsMinimized(!isMinimized)}
-                className="flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 transition-colors rounded-full text-sm font-medium"
+                className="flex items-center gap-2 px-2 py-1 bg-white/10 hover:bg-white/20 transition-colors rounded-full text-xs font-medium"
               >
                 <ChevronDown
                   className={`w-4 h-4 transition-transform duration-300 ${isMinimized ? "rotate-180" : ""}`}
@@ -176,9 +178,9 @@ export default function Home() {
                     toast("Entered fullscreen mode");
                   }
                 }}
-                className="flex items-center gap-2 md:px-4 md:py-2 px-3 py-1  bg-white/10 hover:bg-white/20 transition-colors rounded-full text-sm font-medium"
+                className="flex items-center gap-2 md:px-4 md:py-2 px-3 py-1  bg-white/10 hover:bg-white/20 transition-colors rounded-full text-xs font-medium"
               >
-                <Maximize2 className="w-4 h-4" />
+                <Maximize2 className="w-3 h-3" />
                 <span className="md:block hidden">Full Screen</span>
               </button>
             </div>
@@ -315,11 +317,11 @@ export default function Home() {
                     </div>
                   )}
 
-                  <div className="flex flex-col items-end gap-1 text-white">
+                  <div className="flex md:flex-col items-end gap-1 text-white">
                     {currentTrack.source === "youtube" && (
                       <button
                         onClick={() => setShowVideo(!showVideo)}
-                        className="px-3 py-1 mb-1 text-xs font-semibold bg-white/10 hover:bg-white/20 rounded-full transition-colors backdrop-blur-md border border-white/5"
+                        className="px-3 py-1 mb-1 text-xs font-semibold bg-white/10 hover:bg-white/20 rounded-full transition-colors backdrop-blur-md border border-white/5 hidden md:block"
                       >
                         {showVideo ? "Hide Video" : "Show Video"}
                       </button>
@@ -357,12 +359,12 @@ export default function Home() {
       {/* Right Panel: Context & Queue */}
       <div className="bg-[#121212] rounded-[1.5rem] p-4 flex flex-col overflow-hidden transition-all duration-500 w-full md:flex-[0.45] md:h-full min-h-[50vh] md:min-h-0 shrink-0">
         {/* Search Header */}
-        <div className="flex items-center gap-4 mb-8">
+        <div className="hidden md:flex items-center gap-4 mb-5">
           <div className="relative flex-1">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-neutral-400" />
             <Input
               placeholder="Search by artists, songs or albums"
-              className="w-full bg-[#1a1a1a] border-none rounded-full h-12 pl-12 text-base text-white placeholder:text-neutral-500 focus-visible:ring-1 focus-visible:ring-neutral-700"
+              className="w-full bg-[#1a1a1a] border-none rounded-full h-10 pl-12 text-xs text-white placeholder:text-neutral-500 focus-visible:ring-1 placeholder:text-xs focus-visible:ring-neutral-700"
               onKeyDown={(e) => {
                 if (e.key === "Enter" && e.currentTarget.value.trim()) {
                   router.push(
@@ -372,10 +374,7 @@ export default function Home() {
               }}
             />
           </div>
-          <button
-            onClick={() => toast("Profile clicked")}
-            className="w-12 h-12 rounded-full bg-linear-to-tr from-purple-600 to-blue-500 shrink-0 border-2 border-[#121212] outline-white/10 transition-transform hover:scale-105 shadow-lg shadow-purple-500/20 text-white font-bold text-sm flex items-center justify-center cursor-pointer"
-          >
+          <button className="size-10 rounded-full bg-linear-to-tr from-purple-600 to-blue-500 shrink-0 border-2 border-[#121212] outline-white/10 transition-transform hover:scale-105 shadow-lg shadow-purple-500/20 text-white font-bold text-sm flex items-center justify-center cursor-pointer">
             ME
           </button>
         </div>
@@ -386,7 +385,7 @@ export default function Home() {
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`pb-4 text-base font-medium relative transition-colors ${
+              className={`pb-4 text-xs cursor-pointer font-medium relative transition-colors ${
                 activeTab === tab
                   ? "text-white"
                   : "text-neutral-500 hover:text-neutral-300"
@@ -429,7 +428,7 @@ export default function Home() {
                         transition={{ duration: 0.2, delay: i * 0.02 }}
                         key={`${track.id}-${i}`}
                         onClick={() => setQueue(queue, i)}
-                        className={`flex items-center gap-4 p-3 rounded-xl group cursor-pointer transition-all duration-200 ${
+                        className={`flex items-center gap-4 p-2 rounded-xl group cursor-pointer transition-all duration-200 ${
                           isPlaying
                             ? "bg-white/10 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.1)]"
                             : "hover:bg-white/5"
@@ -456,23 +455,16 @@ export default function Home() {
                           )}
                         </div>
 
-                        <div className="flex flex-col flex-1 min-w-0">
+                        <div className="flex flex-col flex-1 min-w-10">
                           <span
-                            className={`font-semibold text-base truncate ${isPlaying ? "text-white" : "text-neutral-200"}`}
+                            className={`font-semibold text-sm truncate ${isPlaying ? "text-red-500" : "text-neutral-200"}`}
                           >
                             {track.title}
                           </span>
-                          <span className="text-sm text-neutral-500 truncate mt-0.5">
+                          <span className="text-xs text-neutral-500 truncate mt-0.5">
                             {track.artist}
                           </span>
                         </div>
-
-                        <span className="text-sm text-neutral-500 font-medium tabular-nums ml-4 shrink-0">
-                          {Math.floor(track.duration / 60)}:
-                          {Math.floor(track.duration % 60)
-                            .toString()
-                            .padStart(2, "0")}
-                        </span>
 
                         <div className="flex items-center gap-2 ml-4 opacity-0 group-hover:opacity-100 transition-opacity shrink-0">
                           {track.source === "youtube" && (
@@ -492,19 +484,10 @@ export default function Home() {
                               className="p-2 text-neutral-400 hover:text-white transition-colors"
                             >
                               <Heart
-                                className={`w-5 h-5 ${likedSongs.some((t) => t.id === track.id) ? "fill-red-500 text-red-500" : "fill-transparent"}`}
+                                className={`cursor-pointer w-5 h-5 ${likedSongs.some((t) => t.id === track.id) ? "fill-red-500 text-red-500" : "fill-transparent"}`}
                               />
                             </button>
                           )}
-                          <button
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              toast("Opened track options");
-                            }}
-                            className="p-2 text-neutral-400 hover:text-white transition-colors"
-                          >
-                            <MoreHorizontal className="w-5 h-5" />
-                          </button>
                         </div>
                       </motion.div>
                     );
@@ -534,7 +517,7 @@ export default function Home() {
               <h3 className="text-xl font-bold text-white">
                 Import YouTube Playlist
               </h3>
-              <p className="text-neutral-400 text-center max-w-sm mb-4">
+              <p className="text-neutral-400 text-sm md:text-base text-center max-w-sm mb-4">
                 Paste a YouTube playlist link below to instantly import and
                 stream its contents directly through the player.
               </p>
@@ -543,21 +526,23 @@ export default function Home() {
                   value={ytUrl}
                   onChange={(e) => setYtUrl(e.target.value)}
                   placeholder="https://youtube.com/playlist?list=..."
-                  className="bg-[#1a1a1a] border-none text-white h-12 focus-visible:ring-1 focus-visible:ring-red-500"
+                  className="bg-[#1a1a1a] border-none text-white h-10 focus-visible:ring-1 focus-visible:ring-red-500 text-xs placeholder:text-xs"
                   onKeyDown={(e) => e.key === "Enter" && handleImportYT()}
                   disabled={isLoadingYT}
                 />
-                <button
+                <Button
                   onClick={handleImportYT}
+                  variant={"destructive"}
+                  size={"icon-lg"}
                   disabled={isLoadingYT}
-                  className="h-12 px-6 rounded-md bg-red-600 hover:bg-red-700 disabled:bg-red-600/50 disabled:cursor-not-allowed text-white font-semibold transition-colors shrink-0 flex items-center justify-center min-w-[100px]"
+                  className="text-xs md:text-base cursor-pointer"
                 >
                   {isLoadingYT ? (
                     <Loader2 className="w-5 h-5 animate-spin" />
                   ) : (
-                    "Import"
+                    <Import />
                   )}
-                </button>
+                </Button>
               </div>
             </motion.div>
           )}

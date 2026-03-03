@@ -12,7 +12,7 @@ export function VinylVisualizer({
   return (
     <div className="flex-1 flex flex-col items-center justify-center relative w-full h-full py-8">
       {/* Subtle background glow */}
-      <div className="absolute inset-0 flex items-center justify-center z-0 pointer-events-none overflow-hidden rounded-2xl">
+      <div className="absolute inset-0 flex items-center justify-center z-0 pointer-events-none overflow- rounded-2xl">
         <motion.div
           animate={
             isPlaying

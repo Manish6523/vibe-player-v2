@@ -126,7 +126,7 @@ export function LyricsView() {
                   className={cn(
                     "text-center px-12 transition-colors duration-1000 select-none",
                     isActive
-                      ? "text-white text-5xl md:text-7xl font-black tracking-tighter"
+                      ? "text-white text-4xl md:text-7xl font-black tracking-tighter"
                       : "text-neutral-700 text-3xl md:text-4xl font-bold tracking-tight",
                   )}
                 >

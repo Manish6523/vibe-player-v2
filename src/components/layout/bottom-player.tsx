@@ -77,10 +77,26 @@ export function BottomPlayer({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        "h-24 bg-[#0a0a0a] border-t border-[#1a1a1a] flex items-center justify-between px-6 z-50",
+        "h-16 md:h-24 bg-[#0a0a0a] border-t border-[#1a1a1a] flex items-center justify-between px-2 md:px-6 z-50 relative",
         className,
       )}
     >
+      {/* Mobile Track Progress */}
+      <div className="absolute top-0 left-0 right-0 h-1 md:hidden -translate-y-1/2 group px-0">
+        <Slider
+          value={[progress || 0]}
+          max={100}
+          step={0.1}
+          onValueChange={handleSeek}
+          disabled={!currentTrack}
+          className="w-full relative z-10 
+              **:[[role=slider]]:h-3 **:[[role=slider]]:w-3 
+              **:[[role=slider]]:bg-white **:[[role=slider]]:border-white 
+              **:[[role=slider]]:shadow-none **:[[role=slider]]:opacity-100 group-hover:**:[[role=slider]]:opacity-100
+              **:data-[orientation=horizontal]:h-[2px] **:data-[orientation=horizontal]:bg-neutral-800
+              **:data-[orientation=horizontal]>div:bg-white"
+        />
+      </div>
       {/* Track Info (Left) */}
       <div className="flex items-center gap-3 w-full md:w-[30%] md:min-w-[200px]">
         <div className="relative h-14 w-14 rounded-md overflow-hidden bg-neutral-900 group shrink-0">
@@ -116,10 +132,10 @@ export function BottomPlayer({ className }: { className?: string }) {
                 isLiked ? "Removed from Liked Songs" : "Saved to Liked Songs",
               );
             }}
-            className="text-neutral-400 hover:text-white transition-colors ml-2 shrink-0"
+            className="text-neutral-400 hidden md:block hover:text-white transition-colors ml-2 shrink-0"
           >
             <Heart
-              className={`h-4 w-4 ${likedSongs.some((t) => t.id === currentTrack.id) ? "fill-red-500 text-red-500" : "fill-transparent"}`}
+              className={`size-3 md:size-4 cursor-pointer ${likedSongs.some((t) => t.id === currentTrack.id) ? "fill-red-500 text-red-500" : "fill-transparent"}`}
             />
           </button>
         )}
@@ -137,13 +153,13 @@ export function BottomPlayer({ className }: { className?: string }) {
                 : "text-neutral-500 hover:text-neutral-300",
             )}
           >
-            <Shuffle className="h-4 w-4" />
+            <Shuffle className="size-3 md:size-4 cursor-pointer" />
           </button>
           <button
             onClick={playPrevious}
             className="text-neutral-100 hover:text-white transition-colors"
           >
-            <SkipBack className="h-5 w-5" fill="currentColor" />
+            <SkipBack className="size-4 cursor-pointer" fill="currentColor" />
           </button>
 
           <button
@@ -151,9 +167,15 @@ export function BottomPlayer({ className }: { className?: string }) {
             className="h-9 w-9 flex items-center justify-center rounded-sm bg-white text-black hover:scale-105 transition-transform"
           >
             {isPlaying ? (
-              <Pause className="h-4 w-4" fill="currentColor" />
+              <Pause
+                className="size-3 md:size-4 cursor-pointer"
+                fill="currentColor"
+              />
             ) : (
-              <Play className="h-4 w-4 ml-0.5" fill="currentColor" />
+              <Play
+                className="size-3 md:size-4 cursor-pointer ml-0.5"
+                fill="currentColor"
+              />
             )}
           </button>
 
@@ -161,7 +183,10 @@ export function BottomPlayer({ className }: { className?: string }) {
             onClick={playNext}
             className="text-neutral-100 hover:text-white transition-colors"
           >
-            <SkipForward className="h-5 w-5" fill="currentColor" />
+            <SkipForward
+              className="size-4 cursor-pointer"
+              fill="currentColor"
+            />
           </button>
           <button
             onClick={toggleRepeat}
@@ -173,9 +198,9 @@ export function BottomPlayer({ className }: { className?: string }) {
             )}
           >
             {repeatMode === "one" ? (
-              <Repeat1 className="h-4 w-4" />
+              <Repeat1 className="size-3 md:size-4 cursor-pointer" />
             ) : (
-              <Repeat className="h-4 w-4" />
+              <Repeat className="size-3 md:size-4 cursor-pointer" />
             )}
           </button>
         </div>
@@ -210,20 +235,32 @@ export function BottomPlayer({ className }: { className?: string }) {
         {/* Mobile quick controls (Only shows on mobile) */}
         <div className="md:hidden flex items-center gap-3 mr-2">
           <button
+            onClick={playPrevious}
+            className="text-neutral-100 p-2 hover:text-white transition-colors"
+          >
+            <SkipBack className="size-4" fill="currentColor" />
+          </button>
+          <button
             onClick={togglePlayPause}
             className="h-9 w-9 flex items-center justify-center rounded-sm bg-white text-black hover:scale-105 transition-transform"
           >
             {isPlaying ? (
-              <Pause className="h-4 w-4" fill="currentColor" />
+              <Pause
+                className="size-3 md:size-4 cursor-pointer"
+                fill="currentColor"
+              />
             ) : (
-              <Play className="h-4 w-4 ml-0.5" fill="currentColor" />
+              <Play
+                className="size-3 md:size-4 cursor-pointer ml-0.5"
+                fill="currentColor"
+              />
             )}
           </button>
           <button
             onClick={playNext}
             className="text-neutral-100 p-2 hover:text-white transition-colors"
           >
-            <SkipForward className="h-5 w-5" fill="currentColor" />
+            <SkipForward className="size-4" fill="currentColor" />
           </button>
         </div>
 
@@ -233,7 +270,7 @@ export function BottomPlayer({ className }: { className?: string }) {
             onClick={() => toast("Refreshing playback metadata")}
             className="text-neutral-500 hover:text-white transition-colors"
           >
-            <RefreshCw className="h-4 w-4" />
+            <RefreshCw className="size-3 md:size-4 cursor-pointer" />
           </button>
 
           <div className="flex items-center gap-2 w-28 group">
@@ -242,9 +279,9 @@ export function BottomPlayer({ className }: { className?: string }) {
               className="text-neutral-400 hover:text-white transition-colors shrink-0"
             >
               {isMuted || volume === 0 ? (
-                <VolumeX className="h-4 w-4" />
+                <VolumeX className="size-3 md:size-4 cursor-pointer" />
               ) : (
-                <Volume2 className="h-4 w-4" />
+                <Volume2 className="size-3 md:size-4 cursor-pointer" />
               )}
             </button>
             <Slider
@@ -272,7 +309,7 @@ export function BottomPlayer({ className }: { className?: string }) {
             }}
             className="text-neutral-400 hover:text-white transition-colors border-l border-neutral-800 pl-4 ml-2"
           >
-            <Maximize2 className="h-4 w-4" />
+            <Maximize2 className="size-3 md:size-4 cursor-pointer" />
           </button>
         </div>
       </div>
