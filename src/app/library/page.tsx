@@ -6,7 +6,7 @@ import Image from "next/image";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { LocalMusicLoader } from "@/components/player/local-music-loader";
 
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 
@@ -19,10 +19,21 @@ export default function LibraryPage() {
     initYtPlaylists,
     removeLocalPlaylist,
   } = usePlayerStore();
+  const [isVibeMode, setIsVibeMode] = useState(false);
 
   useEffect(() => {
     initYtPlaylists();
   }, [initYtPlaylists]);
+
+  // Read the secret localstorage key on mount and listen to changes
+  useEffect(() => {
+    const checkVibe = () => {
+      setIsVibeMode(localStorage.getItem("vibe") === "true");
+    };
+    checkVibe();
+    window.addEventListener("storage", checkVibe);
+    return () => window.removeEventListener("storage", checkVibe);
+  }, []);
 
   const router = useRouter();
 
@@ -134,15 +145,17 @@ export default function LibraryPage() {
                       </div>
 
                       {/* Minimal Delete Button */}
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          removeLocalPlaylist(playlist.id, true);
-                        }}
-                        className="absolute top-4 right-4 p-2 bg-black/40 backdrop-blur-md rounded-full opacity-0 group-hover:opacity-100 transition-all hover:bg-white hover:text-black z-20 text-white border border-white/10"
-                      >
-                        <Trash2 className="w-3 h-3" />
-                      </button>
+                      {isVibeMode && (
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            removeLocalPlaylist(playlist.id, true);
+                          }}
+                          className="absolute top-4 right-4 p-2 bg-black/40 backdrop-blur-md rounded-full opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-all hover:bg-white hover:text-black z-20 text-white border border-white/10 cursor-pointer"
+                        >
+                          <Trash2 className="w-3 h-3" />
+                        </button>
+                      )}
                     </div>
 
                     {/* Info Layer */}
@@ -201,15 +214,17 @@ export default function LibraryPage() {
                       </div>
 
                       {/* Minimal Delete Button */}
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          removeLocalPlaylist(playlist.id, true);
-                        }}
-                        className="absolute top-4 right-4 p-2 bg-black/40 backdrop-blur-md rounded-full opacity-0 group-hover:opacity-100 transition-all hover:bg-white hover:text-black z-20 text-white border border-white/10"
-                      >
-                        <Trash2 className="w-3 h-3" />
-                      </button>
+                      {isVibeMode && (
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            removeLocalPlaylist(playlist.id, true);
+                          }}
+                          className="absolute top-4 right-4 p-2 bg-black/40 backdrop-blur-md rounded-full opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-all hover:bg-white hover:text-black z-20 text-white border border-white/10 cursor-pointer"
+                        >
+                          <Trash2 className="w-3 h-3" />
+                        </button>
+                      )}
                     </div>
 
                     {/* Info Layer */}
